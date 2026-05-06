@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "cnpj/version"
+require_relative 'cnpj/version'
 
 module Request
   module Cnpj
