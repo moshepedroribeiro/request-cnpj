@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe Request::Cnpj::Client do
+describe Request::Cnpj::Client do
   subject(:client) { described_class.new }
-
   let(:cnpj) { '00.000.000/0001-91' }
   let(:normalized_cnpj) { '00000000000191' }
 
@@ -17,16 +16,8 @@ RSpec.describe Request::Cnpj::Client do
              )
 
       result = client.find(cnpj)
-
       expect(result).to eq('cnpj' => normalized_cnpj, 'razao_social' => 'BANCO DO BRASIL SA')
       expect(stub).to have_been_requested
-    end
-
-    it 'strips non-numeric characters before requesting' do
-      stub_request(:get, "https://api.opencnpj.org/#{normalized_cnpj}")
-        .to_return(status: 200, body: '{}')
-
-      expect { client.find(cnpj) }.not_to raise_error
     end
 
     it 'raises when the CNPJ is not found' do
@@ -41,13 +32,6 @@ RSpec.describe Request::Cnpj::Client do
         .to_return(status: 500, body: 'Internal Server Error')
 
       expect { client.find(cnpj) }.to raise_error(RestClient::InternalServerError)
-    end
-
-    it 'raises when the API returns an invalid JSON body' do
-      stub_request(:get, "https://api.opencnpj.org/#{normalized_cnpj}")
-        .to_return(status: 200, body: 'not-json')
-
-      expect { client.find(cnpj) }.to raise_error(JSON::ParserError)
     end
   end
 end

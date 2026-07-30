@@ -1,28 +1,46 @@
 # Request::Cnpj
 
-TODO: Delete this and the text below, and describe your gem
+[Leia em Português](README.pt-BR.md)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/request/cnpj`. To experiment with that code, run `bin/console` for an interactive prompt.
+A Ruby client for looking up Brazilian company registration data (CNPJ) via the [OpenCNPJ API](https://api.opencnpj.org).
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
+Install the gem and add it to the application's Gemfile by executing:
 
 ```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+bundle add request-cnpj
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install request-cnpj
+```
+
+Alternatively, add it directly to your Gemfile:
+
+```ruby
+gem 'request-cnpj'
+```
+
+And run:
+
+```bash
+bundle install
 ```
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'request/cnpj'
+
+client = Request::Cnpj::Client.new
+client.find('12.345.678/0001-95')
+# => { "cnpj" => "12345678000195", ... }
+```
+
+`find` accepts the CNPJ with or without punctuation — any non-digit characters are stripped before the request is made.
 
 ## Development
 
@@ -32,8 +50,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/request-cnpj. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/request-cnpj/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/moshepedroribeiro/request-cnpj. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](CODE_OF_CONDUCT.md).
 
 ## Code of Conduct
 
-Everyone interacting in the Request::Cnpj project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/request-cnpj/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the Request::Cnpj project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](CODE_OF_CONDUCT.md).
