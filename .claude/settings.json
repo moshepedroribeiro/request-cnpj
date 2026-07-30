@@ -4,7 +4,8 @@
       "Bash(bundle install *)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://api.opencnpj.org/00000000000191)",
       "Bash(curl -s --max-time 5 https://api.opencnpj.org/00000000000191)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://api.opencnpj.org/11111111111111)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://api.opencnpj.org/11111111111111)",
+      "Bash(gem build *)"
     ]
   }
 }
