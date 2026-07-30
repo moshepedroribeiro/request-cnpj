@@ -5,7 +5,10 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://api.opencnpj.org/00000000000191)",
       "Bash(curl -s --max-time 5 https://api.opencnpj.org/00000000000191)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 5 https://api.opencnpj.org/11111111111111)",
-      "Bash(gem build *)"
+      "Bash(gem build *)",
+      "Bash(curl -s https://rubygems.org/api/v1/gems/request-cnpj.json)",
+      "Bash(ls -la ~/.gem/credentials 2>/dev/null && echo \"arquivo existe\" || echo \"arquivo nao encontrado\")",
+      "Read(//Users/moisesribeiro/.gem/**)"
     ]
   }
 }
