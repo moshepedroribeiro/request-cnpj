@@ -4,11 +4,11 @@ module Request
   module Cnpj
     # Client for fetching CNPJ data from the OpenCNPJ API.
     class Client < BaseClient
-      attr_reader :url, :executor
+      attr_reader :url, :rest_client
 
-      def initialize(executor: RestClient::Request)
+      def initialize(rest_client: RestClient::Request)
         super()
-        @executor = executor
+        @rest_client = rest_client
       end
 
       # Method to request CNPJ to API
