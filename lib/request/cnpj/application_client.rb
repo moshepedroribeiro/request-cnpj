@@ -3,11 +3,11 @@
 module Request
   module Cnpj
     # Base class for CNPJ request clients, providing shared execution logic.
-    class BaseClient
+    class ApplicationClient
       protected
 
-      def get(path = nil, params: nil, headers: { accept: 'application/json' }, url: url(path, **params.to_h), &)
-        execute(method: :get, url:, headers:, &)
+      def get(path = nil, headers: { accept: 'application/json' }, url: url(path, **params.to_h))
+        execute(method: :get, url:, headers:)
       end
 
       def execute(**)
