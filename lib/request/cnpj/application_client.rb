@@ -6,7 +6,7 @@ module Request
     class ApplicationClient
       protected
 
-      def get(path = nil, headers: { accept: 'application/json' }, url: url(path, **params.to_h))
+      def get(path = nil, params: {}, headers: { accept: 'application/json' }, url: url(path, params:))
         execute(method: :get, url:, headers:)
       end
 
@@ -18,8 +18,11 @@ module Request
         response.body
       end
 
-      def url(path)
-        URI('https://api.opencnpj.org').tap { |uri| uri.path += path }.to_s
+      def url(path, params: {})
+        URI('https://api.opencnpj.org').tap do |uri|
+          uri.path += path
+          uri.query = URI.encode_www_form(params) if params.any?
+        end.to_s
       end
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Request::Cnpj::Client do
+RSpec.describe Request::Cnpj::Client do
   subject(:client) { described_class.new }
   let(:cnpj) { '00.000.000/0001-91' }
   let(:normalized_cnpj) { '00000000000191' }
@@ -32,6 +32,23 @@ describe Request::Cnpj::Client do
         .to_return(status: 500, body: 'Internal Server Error')
 
       expect { client.find(cnpj) }.to raise_error(RestClient::InternalServerError)
+    end
+  end
+
+  describe '#get' do
+    it 'supports query params when building the CNPJ URL' do
+      stub = stub_request(:get, "https://api.opencnpj.org/#{normalized_cnpj}?cno=true&rntrc=true")
+             .with(headers: { 'Accept' => 'application/json' })
+             .to_return(
+               status: 200,
+               body: { cnpj: normalized_cnpj, cno: nil, rntrc: nil }.to_json,
+               headers: { 'Content-Type' => 'application/json' }
+             )
+
+      result = client.send(:get, "/#{normalized_cnpj}", params: { cno: true, rntrc: true })
+
+      expect(result).to eq({ cnpj: normalized_cnpj, cno: nil, rntrc: nil }.to_json)
+      expect(stub).to have_been_requested
     end
   end
 end
